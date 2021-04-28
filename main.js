@@ -13,25 +13,19 @@ function singleNumToWords(number){
         default: return "NaN";
     }
 }
-function convertToWords(number){
-   let numInWords=[];
-   let finalWord="";
-    
-    for(num= number; num>0; num=Math.floor(num/10)){
-        numInWords.push(singleNumToWords(num%10));
-       
-    }
 
-    for (word= numInWords.length-1; word>=0; --word){
-        finalWord+=numInWords[word];
-    }
-    return finalWord;
-}
 const process= require('process');
 let args= process.argv;
 let convertedWords=[];
-for (i=2; i<args.length; ++i){
- convertedWords.push(convertToWords(Number(args[i])));
+
+for (index = 2; index < args.length; ++index) {
+    if (!isNaN(args[index])) {
+        let completeNumber="";
+        for (digit = 0; digit < args[index].length; ++digit) {
+            completeNumber += convertToWords(Number(args[index][digit]));
+        }
+        convertedWords.push(completeNumber);
+    } else convertedWords.push("NotANumber");
 }
 console.log(convertedWords.join(","));
 
